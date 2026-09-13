@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#0e1610] text-ivory font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Custom selection color */
+  ::selection {
+    background-color: #D4AF37;
+    color: #07180F;
+  }
+
+  /* Editorial Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+/* Luxury custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0e1610;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8e7428;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Hide scrollbar for clean carousels */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Cohesive Royal Lighter Hero Header Background */
+.hero-header-bg {
+  background-color: #273e32;
+  background-image: 
+    radial-gradient(ellipse 75% 65% at 50% 0%, rgba(212, 175, 55, 0.22) 0%, transparent 75%),
+    radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #2c4638 0%, #22372c 100%);
+}
+
+/* Luxury Infinite Auto-Scroll Marquee */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-infinite {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 38s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-infinite:hover,
+.animate-marquee-infinite:active {
+  animation-play-state: paused;
+}
+
+
