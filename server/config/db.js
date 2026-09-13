@@ -22,14 +22,14 @@ const connectDB = async () => {
 
   // Graceful fallback to local MongoDB instance
   try {
-    console.log('[MongoDB] Connecting to local MongoDB fallback (mongodb://127.0.0.1:27017/vanya_jewels)...');
+    console.log('[MongoDB] Attempting connection to local MongoDB fallback...');
     const localConn = await mongoose.connect('mongodb://127.0.0.1:27017/vanya_jewels', {
       serverSelectionTimeoutMS: 3000,
     });
     console.log(`[MongoDB Connected to Local Database]: ${localConn.connection.host}`);
   } catch (fallbackError) {
     console.error(`[MongoDB Connection Failed]: ${fallbackError.message}`);
-    process.exit(1);
+    console.warn('[MongoDB Alert]: Server running without DB connection. Check MONGO_URI and Atlas Network Access (0.0.0.0/0).');
   }
 };
 

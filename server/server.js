@@ -30,12 +30,11 @@ app.set('trust proxy', 1);
 connectDB();
 
 // Security & Logger Middlewares
-app.use(helmet({
-  crossOriginResourcePolicy: false, // allow loading static uploads in frontend
-}));
 app.use(cors({
   origin: true,
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
 }));
 app.options('*', cors());
 app.use(express.json({ limit: '20mb' }));
