@@ -90,7 +90,7 @@ export const cmsService = {
 
   // Store Settings
   async getSettings() {
-    const res = await api.get('/admin/settings');
+    const res = await api.get('/settings');
     return res.data;
   },
 

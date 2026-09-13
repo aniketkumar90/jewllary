@@ -68,6 +68,7 @@ app.use('/api/homepage', homepageRoutes);
 app.use('/api/media', mediaRoutes);
 app.use('/api/newsletter', newsletterRoutes);
 app.use('/api/admin', adminRoutes);
+app.get('/api/settings', require('./controllers/adminController').getSettings);
 
 // 404 handler for unknown endpoints
 app.use('/api/*', (req, res) => {

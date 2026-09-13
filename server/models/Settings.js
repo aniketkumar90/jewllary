@@ -33,6 +33,16 @@ const settingsSchema = new mongoose.Schema({
     type: Number,
     default: 0, // Always complimentary
   },
+  logo: {
+    secure_url: {
+      type: String,
+      default: '/images/logo.png',
+    },
+    public_id: {
+      type: String,
+      default: '',
+    },
+  },
 }, {
   timestamps: true,
 });
