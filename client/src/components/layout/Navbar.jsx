@@ -6,7 +6,6 @@ import {
   FiSearch,
   FiUser,
   FiMenu,
-  FiShield,
 } from 'react-icons/fi';
 
 const Navbar = ({ onOpenSearch, onOpenMobileMenu }) => {
@@ -111,17 +110,6 @@ const Navbar = ({ onOpenSearch, onOpenMobileMenu }) => {
             >
               <FiSearch className="text-lg" />
             </button>
-
-            {/* Admin Badge/Link if admin */}
-            {isAdmin && (
-              <Link
-                to="/admin"
-                className="hidden sm:flex items-center gap-1.5 bg-gold-500/20 border border-gold-500/40 text-gold-300 px-2.5 py-1 text-[10px] uppercase tracking-widest hover:bg-gold-500/30 transition-colors"
-              >
-                <FiShield className="text-xs" />
-                <span>Admin</span>
-              </Link>
-            )}
 
             {/* Account */}
             <Link
