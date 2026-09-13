@@ -41,10 +41,6 @@ const LoginPage = () => {
     }
   };
 
-  const handleQuickLogin = (demoEmail, demoPassword) => {
-    setEmail(demoEmail);
-    setPassword(demoPassword);
-  };
 
   return (
     <div className="pt-28 pb-20 bg-[#0e1610] text-ivory min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
@@ -94,31 +90,6 @@ const LoginPage = () => {
             </Button>
           </div>
         </form>
-
-        {/* Demo Fast Login helpers */}
-        <div className="pt-4 border-t border-gold-500/20 space-y-2 text-left">
-          <p className="text-[10px] uppercase tracking-luxury text-gold-400 font-semibold text-center mb-2">
-            ✦ Fast Demo Access ✦
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('admin@vanya.com', 'Admin@123456')}
-              className="p-2.5 border border-gold-400/40 bg-[#18281d] rounded text-[11px] text-gold-300 hover:bg-[#1f3227] hover:border-gold-400 transition-colors text-center"
-            >
-              <strong className="block font-semibold">Admin Account</strong>
-              <span className="text-[10px] text-ivory/60">admin@vanya.com</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleQuickLogin('customer@vanya.com', 'Customer@123456')}
-              className="p-2.5 border border-gold-500/30 bg-[#18281d] rounded text-[11px] text-ivory/90 hover:bg-[#1f3227] hover:border-gold-400 transition-colors text-center"
-            >
-              <strong className="block font-semibold">Patron Account</strong>
-              <span className="text-[10px] text-ivory/60">customer@vanya.com</span>
-            </button>
-          </div>
-        </div>
 
         <div className="pt-2 text-xs text-ivory/70">
           <span>New to New Shiv Jewellers? </span>
