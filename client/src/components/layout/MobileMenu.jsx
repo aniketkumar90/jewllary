@@ -43,9 +43,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
                     <span className="font-serif text-lg tracking-wider text-gold-400 font-bold uppercase leading-tight">
                       {BRAND_NAME}
                     </span>
-                    <span className="text-[8px] uppercase tracking-[0.2em] text-gold-200/80">
-                      Fine Jewels • Est. 2024
-                    </span>
                   </div>
                 </div>
                 <button

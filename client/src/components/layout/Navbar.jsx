@@ -96,9 +96,6 @@ const Navbar = ({ onOpenSearch, onOpenMobileMenu }) => {
                 <span className="font-serif text-lg sm:text-2xl tracking-wider text-gold-400 font-bold uppercase group-hover:text-gold-300 transition-colors leading-tight">
                   {BRAND_NAME}
                 </span>
-                <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.25em] text-gold-200/90 -mt-0.5">
-                  Fine Jewels • Est. 2024
-                </span>
               </div>
             </Link>
           </div>

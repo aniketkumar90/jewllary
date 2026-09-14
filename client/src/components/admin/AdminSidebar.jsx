@@ -64,9 +64,6 @@ const AdminSidebar = ({ onClose }) => {
                   Admin
                 </span>
               </div>
-              <p className="text-[8px] uppercase tracking-wider text-ivory/60 mt-0.5 font-sans">
-                Fine Jewels • Est. 2024
-              </p>
             </div>
           </div>
         </div>

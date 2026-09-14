@@ -55,9 +55,6 @@ const RegisterPage = () => {
           <span className="font-serif text-2xl tracking-wider text-gold-400 font-normal block uppercase">
             {BRAND_NAME}
           </span>
-          <span className="text-[9px] uppercase tracking-luxury text-gold-300/70 block mt-1">
-            Fine Jewels • Est. 2024
-          </span>
           <h2 className="text-xl font-serif text-ivory mt-3 font-normal">
             Become a Registered Patron
           </h2>

@@ -169,10 +169,6 @@ const CurtainReveal = () => {
               NEW SHIV JEWELLERS
             </h1>
             
-            <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-ivory/90 font-medium mt-1">
-              FINE JEWELS • EST. 2024
-            </span>
-
             <div className="w-16 h-[1px] bg-gradient-to-r from-transparent via-gold-400 to-transparent mt-2.5" />
           </div>
 

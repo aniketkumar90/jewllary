@@ -72,9 +72,6 @@ const Footer = () => {
                 <span className="font-serif text-2xl sm:text-3xl tracking-wider text-gold-400 font-bold block uppercase group-hover:text-gold-300 transition-colors leading-tight">
                   {BRAND_NAME}
                 </span>
-                <span className="text-[9px] uppercase tracking-[0.25em] text-gold-200/90 block mt-0.5">
-                  Fine Jewels • Est. 2024
-                </span>
               </div>
             </Link>
             <p className="text-xs text-ivory/70 leading-relaxed max-w-sm pt-2">
