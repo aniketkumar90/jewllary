@@ -4,9 +4,11 @@ import Button from '../../components/common/Button';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { cmsService } from '../../services/cmsService';
 import { useToast } from '../../context/ToastContext';
+import { useSettings } from '../../context/SettingsContext';
 import { FiSave, FiUpload, FiImage, FiRotateCcw } from 'react-icons/fi';
 
 const AdminSettingsPage = () => {
+  const { updateLogo } = useSettings();
   const [settings, setSettings] = useState({
     storeName: 'NEW SHIV JEWELLERS',
     tagline: 'Fine Jewels • Est. 2024',
@@ -32,10 +34,12 @@ const AdminSettingsPage = () => {
       try {
         const res = await cmsService.getSettings();
         if (res.settings) {
+          const currentLogo = res.settings.logo?.secure_url || '/images/logo.png';
           setSettings({
             ...res.settings,
             logo: res.settings.logo || { secure_url: '/images/logo.png', public_id: '' },
           });
+          updateLogo(currentLogo);
         }
       } catch (e) {
         toast.error('Failed to load store settings');
@@ -44,7 +48,7 @@ const AdminSettingsPage = () => {
       }
     };
     fetchSettings();
-  }, []);
+  }, [updateLogo]);
 
   const handleChange = (e) => {
     setSettings({ ...settings, [e.target.name]: e.target.value });
@@ -62,12 +66,20 @@ const AdminSettingsPage = () => {
       const uploadedUrl = res.data?.secure_url || res.secure_url;
       const publicId = res.data?.public_id || res.public_id || '';
       if (uploadedUrl) {
-        setSettings((prev) => ({
-          ...prev,
+        const updated = {
+          ...settings,
           logo: { secure_url: uploadedUrl, public_id: publicId },
-        }));
-        localStorage.setItem('nsj_logo', uploadedUrl);
-        toast.success('Brand logo uploaded successfully to Cloudinary!');
+        };
+        setSettings(updated);
+        updateLogo(uploadedUrl);
+
+        // Instantly save to database so the logo applies globally without needing extra click
+        try {
+          await cmsService.updateSettings(updated);
+          toast.success('Logo uploaded and applied across entire website!');
+        } catch {
+          toast.success('Brand logo uploaded successfully! Click Save Settings to persist.');
+        }
       }
     } catch (err) {
       toast.error(err.message || 'Failed to upload logo');
@@ -77,13 +89,19 @@ const AdminSettingsPage = () => {
     }
   };
 
-  const handleResetDefaultLogo = () => {
-    setSettings((prev) => ({
-      ...prev,
+  const handleResetDefaultLogo = async () => {
+    const updated = {
+      ...settings,
       logo: { secure_url: '/images/logo.png', public_id: '' },
-    }));
-    localStorage.setItem('nsj_logo', '/images/logo.png');
-    toast.success('Logo reset to default.');
+    };
+    setSettings(updated);
+    updateLogo('/images/logo.png');
+    try {
+      await cmsService.updateSettings(updated);
+      toast.success('Logo reset to default and applied everywhere.');
+    } catch {
+      toast.success('Logo reset to default.');
+    }
   };
 
   const handleSave = async (e) => {
@@ -92,7 +110,7 @@ const AdminSettingsPage = () => {
     try {
       await cmsService.updateSettings(settings);
       if (settings.logo?.secure_url) {
-        localStorage.setItem('nsj_logo', settings.logo.secure_url);
+        updateLogo(settings.logo.secure_url);
       }
       toast.success('Maison settings and logo saved successfully!');
     } catch (err) {
@@ -145,6 +163,11 @@ const AdminSettingsPage = () => {
                 <img
                   src={currentLogoUrl}
                   alt="Brand Logo Preview"
+                  onError={(e) => {
+                    if (e.currentTarget.src !== window.location.origin + '/images/logo.png') {
+                      e.currentTarget.src = '/images/logo.png';
+                    }
+                  }}
                   className="max-h-full max-w-full object-contain"
                 />
               </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext';
+import { SettingsProvider } from './context/SettingsContext';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
@@ -10,13 +11,15 @@ function App() {
   return (
     <BrowserRouter>
       <ToastProvider>
-        <AuthProvider>
-          <CartProvider>
-            <WishlistProvider>
-              <AppRoutes />
-            </WishlistProvider>
-          </CartProvider>
-        </AuthProvider>
+        <SettingsProvider>
+          <AuthProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <AppRoutes />
+              </WishlistProvider>
+            </CartProvider>
+          </AuthProvider>
+        </SettingsProvider>
       </ToastProvider>
     </BrowserRouter>
   );

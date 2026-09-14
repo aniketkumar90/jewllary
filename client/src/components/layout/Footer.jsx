@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BRAND_NAME, BRAND_SUBTITLE } from '../../utils/constants';
+import { useSettings } from '../../context/SettingsContext';
 import { FiShield, FiAward, FiLock, FiPackage } from 'react-icons/fi';
 
 const Footer = () => {
+  const { logoUrl } = useSettings();
   return (
     <footer className="bg-forest-900 text-ivory border-t border-gold-500/20 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,8 +66,13 @@ const Footer = () => {
           <div className="lg:col-span-2 space-y-4 pr-4">
             <Link to="/" className="inline-flex items-center gap-3.5 group">
               <img
-                src="/images/logo.png"
+                src={logoUrl || '/images/logo.png'}
                 alt="New Shiv Jewellers"
+                onError={(e) => {
+                  if (e.currentTarget.src !== window.location.origin + '/images/logo.png') {
+                    e.currentTarget.src = '/images/logo.png';
+                  }
+                }}
                 className="w-14 h-14 object-contain rounded-lg border border-gold-400/40 p-0.5 shadow-md group-hover:scale-105 transition-transform"
               />
               <div>

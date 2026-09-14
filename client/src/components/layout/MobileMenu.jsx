@@ -4,10 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiUser, FiHeart, FiShield, FiPhone, FiMail } from 'react-icons/fi';
 import { NAV_LINKS, JEWELLERY_CATEGORIES, BRAND_NAME } from '../../utils/constants';
 import { useAuth } from '../../context/AuthContext';
+import { useSettings } from '../../context/SettingsContext';
 
 const MobileMenu = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { isAuthenticated, isAdmin, user } = useAuth();
+  const { logoUrl } = useSettings();
 
   return (
     <AnimatePresence>
@@ -35,8 +37,13 @@ const MobileMenu = ({ isOpen, onClose }) => {
               <div className="flex items-center justify-between p-5 border-b border-gold-500/20">
                 <div className="flex items-center gap-3">
                   <img
-                    src="/images/logo.png"
+                    src={logoUrl || '/images/logo.png'}
                     alt="New Shiv Jewellers"
+                    onError={(e) => {
+                      if (e.currentTarget.src !== window.location.origin + '/images/logo.png') {
+                        e.currentTarget.src = '/images/logo.png';
+                      }
+                    }}
                     className="w-10 h-10 object-contain rounded-md border border-gold-400/40 p-0.5"
                   />
                   <div className="flex flex-col text-left">

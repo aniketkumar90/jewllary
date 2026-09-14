@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useSettings } from '../../context/SettingsContext';
 import { BRAND_NAME } from '../../utils/constants';
 import {
   FiGrid,
@@ -44,6 +45,8 @@ const AdminSidebar = ({ onClose }) => {
     navigate('/');
   };
 
+  const { logoUrl } = useSettings();
+
   return (
     <aside className="w-64 bg-[#09100a] text-ivory flex flex-col justify-between border-r border-gold-400/25 h-screen sticky top-0 overflow-y-auto">
       <div>
@@ -51,8 +54,13 @@ const AdminSidebar = ({ onClose }) => {
         <div className="p-5 border-b border-gold-500/20">
           <div className="flex items-center gap-3">
             <img
-              src="/images/logo.png"
+              src={logoUrl || '/images/logo.png'}
               alt="New Shiv Jewellers"
+              onError={(e) => {
+                if (e.currentTarget.src !== window.location.origin + '/images/logo.png') {
+                  e.currentTarget.src = '/images/logo.png';
+                }
+              }}
               className="w-10 h-10 object-contain rounded-md border border-gold-400/40 p-0.5 shadow-md"
             />
             <div className="flex-1 min-w-0 text-left">

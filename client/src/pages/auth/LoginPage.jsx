@@ -4,9 +4,11 @@ import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useSettings } from '../../context/SettingsContext';
 import { BRAND_NAME } from '../../utils/constants';
 
 const LoginPage = () => {
+  const { logoUrl } = useSettings();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -50,8 +52,13 @@ const LoginPage = () => {
       <div className="max-w-md w-full bg-[#142318] border border-gold-400/40 p-8 sm:p-10 rounded-xl shadow-2xl shadow-black/80 space-y-6 text-center relative z-10">
         <div>
           <img
-            src="/images/logo.png"
+            src={logoUrl || '/images/logo.png'}
             alt={BRAND_NAME}
+            onError={(e) => {
+              if (e.currentTarget.src !== window.location.origin + '/images/logo.png') {
+                e.currentTarget.src = '/images/logo.png';
+              }
+            }}
             className="w-16 h-16 object-contain mx-auto mb-2 rounded-lg border border-gold-400/40 p-0.5 shadow-md shadow-black/40"
           />
           <span className="font-serif text-2xl tracking-wider text-gold-400 font-normal block uppercase">

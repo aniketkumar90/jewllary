@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { NAV_LINKS, BRAND_NAME, BRAND_SUBTITLE } from '../../utils/constants';
-import { cmsService } from '../../services/cmsService';
+import { useSettings } from '../../context/SettingsContext';
+import { NAV_LINKS, BRAND_NAME } from '../../utils/constants';
 import {
   FiSearch,
   FiUser,
@@ -13,13 +13,7 @@ const Navbar = ({ onOpenSearch, onOpenMobileMenu }) => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { isAuthenticated, isAdmin, user } = useAuth();
-  const [logoUrl, setLogoUrl] = useState(() => {
-    try {
-      return localStorage.getItem('nsj_logo') || '/images/logo.png';
-    } catch {
-      return '/images/logo.png';
-    }
-  });
+  const { logoUrl } = useSettings();
 
   const isHomePage = location.pathname === '/';
 
@@ -34,22 +28,6 @@ const Navbar = ({ onOpenSearch, onOpenMobileMenu }) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Fetch dynamic brand logo from settings
-  useEffect(() => {
-    const fetchLogo = async () => {
-      try {
-        const res = await cmsService.getSettings();
-        if (res.settings?.logo?.secure_url) {
-          setLogoUrl(res.settings.logo.secure_url);
-          localStorage.setItem('nsj_logo', res.settings.logo.secure_url);
-        }
-      } catch {
-        // Fallback gracefully
-      }
-    };
-    fetchLogo();
   }, []);
 
   // On home page, initially transparent overlay, on scroll turns deep forest green
@@ -90,6 +68,11 @@ const Navbar = ({ onOpenSearch, onOpenMobileMenu }) => {
               <img
                 src={logoUrl || '/images/logo.png'}
                 alt={BRAND_NAME}
+                onError={(e) => {
+                  if (e.currentTarget.src !== window.location.origin + '/images/logo.png') {
+                    e.currentTarget.src = '/images/logo.png';
+                  }
+                }}
                 className="h-10 sm:h-12 w-auto object-contain rounded-md border border-gold-400/40 p-0.5 shadow-md group-hover:scale-105 transition-transform"
               />
               <div className="flex flex-col items-center lg:items-start text-left">

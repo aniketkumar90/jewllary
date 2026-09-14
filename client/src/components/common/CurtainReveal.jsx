@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSettings } from '../../context/SettingsContext';
 
 const CurtainReveal = () => {
+  const { logoUrl } = useSettings();
   const [isOpen, setIsOpen] = useState(false);
   const [isRemoved, setIsRemoved] = useState(false);
 
@@ -160,8 +162,13 @@ const CurtainReveal = () => {
             
             {/* Logo Image */}
             <img
-              src="/images/logo.png"
+              src={logoUrl || '/images/logo.png'}
               alt="New Shiv Jewellers"
+              onError={(e) => {
+                if (e.currentTarget.src !== window.location.origin + '/images/logo.png') {
+                  e.currentTarget.src = '/images/logo.png';
+                }
+              }}
               className="w-20 h-20 sm:w-24 sm:h-24 object-contain rounded-md mb-3 shadow-lg"
             />
             
